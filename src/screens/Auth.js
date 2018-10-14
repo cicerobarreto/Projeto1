@@ -14,6 +14,7 @@ import { server, showError} from '../common'
 import commonStyles from '../commonStyles'
 import backgroundImage from '../../assets/imgs/login.jpg'
 import AuthInput from '../components/AuthInput'
+import {displayName as displayName} from '../../app.json';
 
 export default class Auth extends Component {
     state = {
@@ -81,7 +82,7 @@ export default class Auth extends Component {
         return (
             <ImageBackground source={backgroundImage}
                 style={styles.background}>
-                <Text style={styles.title}>AppModelo</Text>
+                <Text style={styles.title}>{displayName}</Text>
                 <View style={styles.formContainer}>
                     <Text style={styles.subtitle}>
                         {this.state.stageNew ? 
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: commonStyles.fontFamily,
         color: '#FFF',
-        fontSize: 70,
+        fontSize: 50,
         marginBottom: 10,
     },
     subtitle: {
