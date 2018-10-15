@@ -10,6 +10,7 @@ import { DrawerItems } from 'react-navigation'
 import axios from 'axios'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import commonStyles from '../commonStyles'
+import {displayName as displayName} from '../../app.json';
 
 export default props => {
     const logout = () => {
@@ -20,7 +21,7 @@ export default props => {
     return (
     <ScrollView>
         <View style={styles.header}>
-            <Text style={styles.title}> Tasks </Text>
+            <Text style={styles.title}> {displayName} </Text>
             <Gravatar style={styles.avatar}
                 options={{
                     email: props.navigation.getParam('email'),

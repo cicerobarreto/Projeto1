@@ -11,30 +11,37 @@ import commonsStyle from './commonStyles'
 const MenuRoutes = {
     Today: {
         name: 'Today',
-        screen: props => <Chat title='Hoje' daysAhead={0} {...props} />,
+        screen: props => <Agenda title='Hoje' daysAhead={0} {...props} />,
         navigationOptions: {
             title: 'Hoje'
         }
     },
     Tomorrow: {
         name: 'Tomorrow',
-        screen: props => <Chat title='Amanhã' daysAhead={1} {...props} />,
+        screen: props => <Agenda title='Amanhã' daysAhead={1} {...props} />,
         navigationOptions: {
             title: 'Amanhã'
         }
     },
     Week: {
         name: 'Week',
-        screen: props => <Chat title='Semana' daysAhead={7} {...props} />,
+        screen: props => <Agenda title='Semana' daysAhead={7} {...props} />,
         navigationOptions: {
             title: 'Semana'
         }
     },
     Month: {
         name: 'Month',
-        screen: props => <Chat title='Mês' daysAhead={30} {...props} />,
+        screen: props => <Agenda title='Mês' daysAhead={30} {...props} />,
         navigationOptions: {
             title: 'Mês'
+        }
+    },
+    Chat: {
+        name: 'Chat',
+        screen: props => <Chat title='Chat' {...props} />,
+        navigationOptions: {
+            title: 'Chat'
         }
     }
 }

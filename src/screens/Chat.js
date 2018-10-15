@@ -8,9 +8,13 @@ import {
 } from 'react-native';
 
 import {GiftedChat, Actions, Bubble, SystemMessage} from 'react-native-gifted-chat';
+import axios from 'axios'
+import moment from 'moment'
+import 'moment/locale/pt-br'
+
+import { server, showError } from '../common'
 import CustomActions from '../components/CustomActions';
 import CustomView from '../components/CustomView';
-
 export default class Chat extends React.Component {
   constructor(props) {
     super(props);
@@ -40,13 +44,25 @@ export default class Chat extends React.Component {
     this.setState( {userData : {...userData}} )
   }
 
+  loadMessages = async () => {
+    try {
+        let dataPesquisa = moment().add({days: 1}).format('DD/MM/YYYY')
+        const res = await axios.get(`${server}/api/messages?date=${dataPesquisa}`)
+        this.setState({ messages: res.data })
+        
+    } catch (error) {
+        showError(error)
+    }
+}
+
   componentWillMount() {
     this._isMounted = true;
-    this.setState(() => {
+    this.loadMessages()
+    /*this.setState(() => {
       return {
         messages: require('../../data/messages.js'),
       };
-    });
+    });*/
   }
 
   componentWillUnmount() {
@@ -73,7 +89,12 @@ export default class Chat extends React.Component {
     }, 1000); // simulating network
   }
 
+  addMessage = async message => {
+    await axios.post(`${server}/api/insertMessage`,{...message})
+  }
+
   onSend(messages = []) {
+    messages.forEach(msg => this.addMessage(msg))
     this.setState((previousState) => {
       return {
         messages: GiftedChat.append(previousState.messages, messages),
