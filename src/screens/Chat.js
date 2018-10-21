@@ -90,7 +90,14 @@ export default class Chat extends React.Component {
   }
 
   addMessage = async message => {
-    await axios.post(`${server}/api/insertMessage`,{...message})
+    await axios.post(`${server}/api/insertMessage`,{...message}).then( async result => this.loadMessages());
+  }
+
+  removeMessageUser = async (user) => {
+    await axios.post(`${server}/api/removeMessageUser`,{_id: user._id})
+    .then( async result => {
+      this.loadMessages()})
+    .catch(err => showError(err));
   }
 
   onSend(messages = []) {
@@ -101,8 +108,7 @@ export default class Chat extends React.Component {
       };
     });
 
-    // for demo purpose
-    this.answerDemo(messages);
+    //this.answerDemo(messages);
   }
 
   answerDemo(messages) {
@@ -166,11 +172,11 @@ export default class Chat extends React.Component {
       );
     }
     const options = {
-      'Action 1': (props) => {
-        alert('option 1');
+      'Limpar histórico conversa': (props) => {
+        this.removeMessageUser(this.state.userData)
       },
       'Action 2': (props) => {
-        alert('option 2');
+        //alert('option 2');
       },
       'Cancel': () => {},
     };

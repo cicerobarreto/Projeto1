@@ -28,7 +28,7 @@ export default class Auth extends Component {
     signup = async () => {
         try {
             await axios.post(`${server}/signup`, {
-                username: this.state.name,
+                name: this.state.name,
                 email: this.state.email,
                 password: this.state.password,
                 confirmPassword: this.state.confirmPassword
@@ -44,7 +44,7 @@ export default class Auth extends Component {
     signin = async () => {
         try {
             const res = await axios.post(`${server}/login`, {
-                username: this.state.name,
+                name: this.state.name,
                 password: this.state.password
             })
 
