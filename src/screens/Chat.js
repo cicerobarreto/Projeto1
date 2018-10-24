@@ -7,7 +7,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import {GiftedChat, Actions, Bubble, SystemMessage} from 'react-native-gifted-chat';
+import { GiftedChat, Actions, Bubble, SystemMessage } from 'react-native-gifted-chat';
 import axios from 'axios'
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -41,19 +41,19 @@ export default class Chat extends React.Component {
   componentDidMount = async () => {
     const json = await AsyncStorage.getItem('userData')
     const userData = JSON.parse(json) || {}
-    this.setState( {userData : {...userData}} )
+    this.setState({ userData: { ...userData } })
   }
 
   loadMessages = async () => {
     try {
-        let dataPesquisa = moment().add({days: 1}).format('DD/MM/YYYY')
-        const res = await axios.get(`${server}/api/messages?date=${dataPesquisa}`)
-        this.setState({ messages: res.data })
-        
+      let dataPesquisa = moment().add({ days: 1 }).format('DD/MM/YYYY')
+      const res = await axios.get(`${server}/api/messages?date=${dataPesquisa}`)
+      this.setState({ messages: res.data })
+
     } catch (error) {
-        showError(error)
+      showError(error)
     }
-}
+  }
 
   componentWillMount() {
     this._isMounted = true;
@@ -90,14 +90,16 @@ export default class Chat extends React.Component {
   }
 
   addMessage = async message => {
-    await axios.post(`${server}/api/insertMessage`,{...message}).then( async result => this.loadMessages());
+    await axios.post(`${server}/api/insertMessage`, { ...message })
+      .then(async result => this.loadMessages());
   }
 
   removeMessageUser = async (user) => {
-    await axios.post(`${server}/api/removeMessageUser`,{_id: user._id})
-    .then( async result => {
-      this.loadMessages()})
-    .catch(err => showError(err));
+    await axios.post(`${server}/api/removeMessageUser`, { _id: user._id })
+      .then(async result => {
+        this.loadMessages()
+      })
+      .catch(err => showError(err));
   }
 
   onSend(messages = []) {
@@ -178,7 +180,7 @@ export default class Chat extends React.Component {
       'Action 2': (props) => {
         //alert('option 2');
       },
-      'Cancel': () => {},
+      'Cancel': () => { },
     };
     return (
       <Actions
